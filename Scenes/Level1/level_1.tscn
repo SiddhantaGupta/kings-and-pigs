@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bs3h1rjbcbn4g"]
 
-[ext_resource type="Script" path="res://Level1/Level1.cs" id="1_7ljsc"]
+[ext_resource type="Script" path="res://Scenes/Level1/Level1.cs" id="1_7ljsc"]
 [ext_resource type="Texture2D" uid="uid://bi2s0s0kwy2ii" path="res://Sprites/14-TileSets/Terrain (32x32).png" id="1_14okd"]
 [ext_resource type="Texture2D" uid="uid://cn6hixcscuebf" path="res://Sprites/14-TileSets/Decorations (32x32).png" id="2_4fnsl"]
-[ext_resource type="PackedScene" uid="uid://pesnq26km0nf" path="res://Player/player.tscn" id="3_8cs53"]
+[ext_resource type="PackedScene" uid="uid://pesnq26km0nf" path="res://Scenes/Player/player.tscn" id="3_8cs53"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ym28p"]
 resource_name = "Terrain"
