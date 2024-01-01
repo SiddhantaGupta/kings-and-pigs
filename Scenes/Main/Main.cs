@@ -14,8 +14,7 @@ public partial class Main : Node2D
 	}
 	private void OnPlayButtonPressed()
 	{
-		GD.Print("pressed");
-		GetTree().ChangeSceneToFile("res://Scenes/Level1/level_1.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/Levels/Level1/level_1.tscn");
 	}
 }
 
