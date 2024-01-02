@@ -1,0 +1,166 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2bjlb3rfquki"]
+
+[ext_resource type="Script" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/BoxPig.cs" id="1_u7rat"]
+[ext_resource type="Texture2D" uid="uid://bjr47gisecc6i" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Idle (26x30).png" id="2_rf2o7"]
+[ext_resource type="Texture2D" uid="uid://c0oh7xtjpweda" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Picking Box (26x30).png" id="3_6d24o"]
+[ext_resource type="Texture2D" uid="uid://dn3xkdsa4mi8x" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Throwing Box (26x30).png" id="5_3742h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pc2aq"]
+size = Vector2(26, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2yvp"]
+size = Vector2(192, 80)
+
+[sub_resource type="Animation" id="Animation_3m037"]
+resource_name = "Idle"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rf2o7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [9]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_psuc8"]
+resource_name = "Pick"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_6d24o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_rinq0"]
+resource_name = "Throw"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_3742h")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j7mmg"]
+_data = {
+"Idle": SubResource("Animation_3m037"),
+"Pick": SubResource("Animation_psuc8"),
+"Throw": SubResource("Animation_rinq0")
+}
+
+[node name="BoxPig" type="CharacterBody2D"]
+script = ExtResource("1_u7rat")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_6d24o")
+hframes = 5
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 1)
+shape = SubResource("RectangleShape2D_pc2aq")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="PlayerDetectionArea" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_q2yvp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j7mmg")
+}
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="OnPlayerDetectionBodyEntered"]
