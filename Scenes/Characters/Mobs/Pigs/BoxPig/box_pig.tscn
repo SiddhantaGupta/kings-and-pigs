@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2bjlb3rfquki"]
+[gd_scene load_steps=21 format=3 uid="uid://c2bjlb3rfquki"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/BoxPig.cs" id="1_u7rat"]
 [ext_resource type="Texture2D" uid="uid://bjr47gisecc6i" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Idle (26x30).png" id="2_rf2o7"]
 [ext_resource type="Texture2D" uid="uid://c0oh7xtjpweda" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Picking Box (26x30).png" id="3_6d24o"]
+[ext_resource type="Script" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/Damageable.cs" id="5_1wkbt"]
 [ext_resource type="Texture2D" uid="uid://dn3xkdsa4mi8x" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Throwing Box (26x30).png" id="5_3742h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc2aq"]
 size = Vector2(26, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q2yvp"]
-size = Vector2(192, 80)
+size = Vector2(128, 80)
 
 [sub_resource type="Animation" id="Animation_3m037"]
 resource_name = "Idle"
@@ -95,7 +96,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_rinq0"]
 resource_name = "Throw"
 length = 0.5
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -140,13 +140,54 @@ _data = {
 "Throw": SubResource("Animation_rinq0")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_abfvs"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4at5y"]
+animation = &"Pick"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vhvg0"]
+animation = &"Throw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q13l1"]
+advance_mode = 2
+advance_condition = &"isThrowing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tr7tc"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isThrowing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rhcqu"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"aaisPicking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t4stw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7f4tp"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isIdle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iloep"]
+states/Idle/node = SubResource("AnimationNodeAnimation_abfvs")
+states/Idle/position = Vector2(367, 100)
+states/Pick/node = SubResource("AnimationNodeAnimation_4at5y")
+states/Pick/position = Vector2(454, -17)
+states/Start/position = Vector2(211, 100)
+states/Throw/node = SubResource("AnimationNodeAnimation_vhvg0")
+states/Throw/position = Vector2(610, 100)
+transitions = ["Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_q13l1"), "Pick", "Throw", SubResource("AnimationNodeStateMachineTransition_tr7tc"), "Throw", "Pick", SubResource("AnimationNodeStateMachineTransition_rhcqu"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t4stw"), "Pick", "Idle", SubResource("AnimationNodeStateMachineTransition_7f4tp")]
+graph_offset = Vector2(0, -54.5214)
+
 [node name="BoxPig" type="CharacterBody2D"]
 script = ExtResource("1_u7rat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_6d24o")
 hframes = 5
-frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 1)
@@ -163,4 +204,20 @@ libraries = {
 "": SubResource("AnimationLibrary_j7mmg")
 }
 
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("5_1wkbt")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
+libraries = {
+"": SubResource("AnimationLibrary_j7mmg")
+}
+tree_root = SubResource("AnimationNodeStateMachine_iloep")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/aaisPicking = false
+parameters/conditions/isIdle = false
+parameters/conditions/isThrowing = false
+
 [connection signal="body_entered" from="PlayerDetection" to="." method="OnPlayerDetectionBodyEntered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="OnPlayerDetectionBodyExited"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnAnimationTreeAnimationFinished"]

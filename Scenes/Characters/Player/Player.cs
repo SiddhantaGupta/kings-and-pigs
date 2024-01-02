@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
 	public CollisionShape2D collider;
 	public Sprite2D sprite;
 	public Area2D attackArea;
+	public CollisionShape2D attackCollider;
 	public AnimationTree animationTree;
 	// Using AnimationNodeStateMachinePlayback automatically picks one animation to play.
 	// Instead of setting all nodes in AnimationTree to true or false you only have to pick the animation you want to play.
@@ -24,6 +25,7 @@ public partial class Player : CharacterBody2D
 		collider = GetNode<CollisionShape2D>("CollisionShape2D");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		attackArea = GetNode<Area2D>("AttackArea");
+		attackCollider = GetNode<CollisionShape2D>("AttackArea/CollisionShape2D");
 		animationTree = GetNode<AnimationTree>("AnimationTree");
 		animationPlayback = animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
 
@@ -89,11 +91,13 @@ public partial class Player : CharacterBody2D
 			sprite.FlipH = true;
 			// The sprite is not centered so the collider (Hitboxes) need to be flipped as well.
 			collider.Position = new Vector2(Math.Abs(collider.Position.X), collider.Position.Y);
+			attackCollider.Position = new Vector2(-Math.Abs(attackCollider.Position.X), attackCollider.Position.Y);
 		}
 		else if (direction.X == 1)
 		{
 			sprite.FlipH = false;
 			collider.Position = new Vector2(-Math.Abs(collider.Position.X), collider.Position.Y);
+			attackCollider.Position = new Vector2(Math.Abs(attackCollider.Position.X), attackCollider.Position.Y);
 		}
 	}
 }

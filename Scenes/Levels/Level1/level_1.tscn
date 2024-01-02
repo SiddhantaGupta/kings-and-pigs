@@ -1371,5 +1371,6 @@ layer_0/tile_data = PackedInt32Array(1966113, 262144, 6, 2031649, 262144, 7, 209
 [node name="Player" parent="." instance=ExtResource("3_8cs53")]
 position = Vector2(472, 768)
 
-[node name="BoxPig" parent="." instance=ExtResource("5_vxfva")]
+[node name="BoxPig" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_vxfva")]
 position = Vector2(624, 768)
+player = NodePath("../Player")
