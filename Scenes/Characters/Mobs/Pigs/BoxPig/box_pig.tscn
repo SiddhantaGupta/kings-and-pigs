@@ -10,7 +10,7 @@
 size = Vector2(26, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q2yvp"]
-size = Vector2(128, 80)
+size = Vector2(192, 80)
 
 [sub_resource type="Animation" id="Animation_3m037"]
 resource_name = "Idle"
@@ -217,6 +217,9 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/aaisPicking = false
 parameters/conditions/isIdle = false
 parameters/conditions/isThrowing = false
+
+[node name="BoxMarker" type="Marker2D" parent="."]
+position = Vector2(-24, -16)
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="OnPlayerDetectionBodyEntered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="OnPlayerDetectionBodyExited"]
