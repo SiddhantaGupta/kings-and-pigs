@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://pesnq26km0nf"]
+[gd_scene load_steps=31 format=3 uid="uid://pesnq26km0nf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_to6ud"]
 [ext_resource type="Texture2D" uid="uid://bd175tghbgi3x" path="res://Assets/Sprites/King Human/Attack (78x58).png" id="2_06a47"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cbvndtw7osxjx" path="res://Assets/Sprites/King Human/Jump (78x58).png" id="3_1mpgu"]
 [ext_resource type="Texture2D" uid="uid://ci5g3bxb1vc3p" path="res://Assets/Sprites/King Human/Run (78x58).png" id="3_kscbm"]
 [ext_resource type="Script" path="res://Scenes/Characters/Player/AttackArea.cs" id="6_jdryb"]
+[ext_resource type="PackedScene" uid="uid://4rfk6bu6djee" path="res://Scenes/Stats/Health/health.tscn" id="7_6fxgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdd6r"]
 size = Vector2(29, 30)
@@ -313,5 +314,7 @@ parameters/conditions/isAttacking = false
 parameters/conditions/isJumping = false
 parameters/conditions/isMoving = false
 parameters/Move/blend_position = 0.0
+
+[node name="Health" parent="." instance=ExtResource("7_6fxgd")]
 
 [connection signal="body_entered" from="AttackArea" to="AttackArea" method="OnBodyEntered"]

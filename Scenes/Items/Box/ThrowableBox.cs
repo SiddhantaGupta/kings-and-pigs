@@ -8,8 +8,14 @@ public partial class ThrowableBox : RigidBody2D
 		if (body is Player)
 		{
 			// reduce player health
-			QueueFree();
-			GD.Print("Player collided");
+			foreach (var child in body.GetChildren())
+			{
+				if (child is Health)
+				{
+					((Health)child).hit(20);
+					QueueFree();
+				}
+			}
 		}
 	}
 }
