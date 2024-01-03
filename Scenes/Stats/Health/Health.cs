@@ -3,6 +3,8 @@ using System;
 
 public partial class Health : CanvasLayer
 {
+	[Signal]
+	public delegate void HealthDepletedEventHandler();
 	private int health = 100;
 	private Label healthLabel;
 
@@ -17,7 +19,7 @@ public partial class Health : CanvasLayer
 		setHealth(health - damage);
 		if (health <= 0)
 		{
-			GetParent().QueueFree();
+			EmitSignal(SignalName.HealthDepleted);
 		}
 	}
 

@@ -6,10 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m13bo"]
 size = Vector2(20, 16)
 
-[node name="ThrowableBox" type="RigidBody2D"]
-gravity_scale = 0.0
-max_contacts_reported = 1
-contact_monitor = true
+[node name="ThrowableBox" type="Area2D"]
 script = ExtResource("1_g2ujn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

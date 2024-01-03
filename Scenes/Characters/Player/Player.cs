@@ -19,6 +19,7 @@ public partial class Player : CharacterBody2D
 	// This also ensures you don't set two items true at the same time which can lead to unintended bugs.
 	public AnimationNodeStateMachinePlayback animationPlayback;
 	public Vector2 direction;
+	public bool isDead = false;
 
 	public override void _Ready()
 	{
@@ -35,6 +36,7 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+
 		Vector2 velocity = Velocity;
 
 		// Add the gravity.
@@ -68,6 +70,7 @@ public partial class Player : CharacterBody2D
 
 	public void UpdateAnimationParameters()
 	{
+		if (isDead) { return; }
 		animationTree.Set("parameters/Move/blend_position", direction.X);
 		if (!IsOnFloor())
 		{
@@ -100,4 +103,10 @@ public partial class Player : CharacterBody2D
 			attackCollider.Position = new Vector2(Math.Abs(attackCollider.Position.X), attackCollider.Position.Y);
 		}
 	}
+	private void OnHealthDepleted()
+	{
+		isDead = true;
+		animationPlayback.Travel("Dead");
+	}
+
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bs3h1rjbcbn4g"]
 
-[ext_resource type="Script" path="res://Scenes/Levels/Level1/Level1.cs" id="1_7ljsc"]
+[ext_resource type="Script" path="res://Scenes/Levels/LevelTest/LevelTest.cs" id="1_4kqp5"]
 [ext_resource type="Texture2D" uid="uid://bi2s0s0kwy2ii" path="res://Assets/Sprites/TileSets/Terrain (32x32).png" id="1_14okd"]
 [ext_resource type="Texture2D" uid="uid://cn6hixcscuebf" path="res://Assets/Sprites/TileSets/Decorations (32x32).png" id="2_4fnsl"]
 [ext_resource type="PackedScene" uid="uid://pesnq26km0nf" path="res://Scenes/Characters/Player/player.tscn" id="3_8cs53"]
@@ -1347,7 +1347,7 @@ texture = ExtResource("2_4fnsl")
 sources/0 = SubResource("TileSetAtlasSource_3nmnx")
 
 [node name="Level1" type="Node2D"]
-script = ExtResource("1_7ljsc")
+script = ExtResource("1_4kqp5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -936.0

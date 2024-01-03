@@ -84,14 +84,9 @@ public partial class BoxPig : CharacterBody2D
 			case "Throw":
 				ThrowableBox throwableBox = throwableBoxScene.Instantiate<ThrowableBox>();
 				throwableBox.Position = boxMarker.Position;
+				throwableBox.destination = player.GlobalPosition;
+				throwableBox.Speed = throwStrength;
 				AddChild(throwableBox);
-				// The LinearVelocity needs to be set after the call to AddChild
-				// because no GlobalPosition exists for box before it.
-				// both the below statement will give the same result.
-				throwableBox.LinearVelocity =
-					new Vector2(throwStrength, 0)
-					.Rotated(throwableBox.GlobalPosition.AngleToPoint(player.GlobalPosition));
-				// throwableBox.LinearVelocity = (player.GlobalPosition - throwableBox.GlobalPosition).Normalized() * throwStrength;
 
 				animationPlayback.Travel("Pick");
 				break;

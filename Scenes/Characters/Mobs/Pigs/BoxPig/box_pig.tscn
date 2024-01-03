@@ -219,7 +219,7 @@ parameters/conditions/isIdle = false
 parameters/conditions/isThrowing = false
 
 [node name="BoxMarker" type="Marker2D" parent="."]
-position = Vector2(-24, -16)
+position = Vector2(-24, -24)
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="OnPlayerDetectionBodyEntered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="OnPlayerDetectionBodyExited"]
