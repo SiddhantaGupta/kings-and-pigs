@@ -101,9 +101,6 @@ public partial class BoxPig : CharacterBody2D
 					animationPlayback.Travel("Idle");
 				}
 				break;
-
-			default:
-				break;
 		}
 	}
 }

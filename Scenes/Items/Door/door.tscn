@@ -1,0 +1,201 @@
+[gd_scene load_steps=18 format=3 uid="uid://c7r62s7ep18y2"]
+
+[ext_resource type="Texture2D" uid="uid://dgee12si3bjx5" path="res://Assets/Sprites/Door/Idle.png" id="1_m0pg7"]
+[ext_resource type="Script" path="res://Scenes/Items/Door/Door.cs" id="1_x3ei1"]
+[ext_resource type="Texture2D" uid="uid://byj7jbh6mfchs" path="res://Assets/Sprites/Door/Opening (46x56).png" id="2_jxalo"]
+[ext_resource type="Texture2D" uid="uid://cgmikagjun61" path="res://Assets/Sprites/Door/Closiong (46x56).png" id="2_x20oc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ou3xx"]
+size = Vector2(47.5, 56)
+
+[sub_resource type="Animation" id="Animation_5b4pw"]
+resource_name = "Close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_x20oc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_baqbm"]
+resource_name = "Idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_m0pg7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ab07g"]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_jxalo")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_715hb"]
+_data = {
+"Close": SubResource("Animation_5b4pw"),
+"Idle": SubResource("Animation_baqbm"),
+"Open": SubResource("Animation_ab07g")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ctmha"]
+animation = &"Close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_leoql"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ucwdl"]
+animation = &"Open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g3htm"]
+advance_mode = 2
+advance_condition = &"isOpening"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ncsk6"]
+advance_mode = 2
+advance_condition = &"isClosing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xfmp8"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isIdling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qujos"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r5eno"]
+states/Close/node = SubResource("AnimationNodeAnimation_ctmha")
+states/Close/position = Vector2(516, 173)
+states/Idle/node = SubResource("AnimationNodeAnimation_leoql")
+states/Idle/position = Vector2(363, 100)
+states/Open/node = SubResource("AnimationNodeAnimation_ucwdl")
+states/Open/position = Vector2(516, 39)
+states/Start/position = Vector2(168, 100)
+transitions = ["Idle", "Open", SubResource("AnimationNodeStateMachineTransition_g3htm"), "Open", "Close", SubResource("AnimationNodeStateMachineTransition_ncsk6"), "Close", "Idle", SubResource("AnimationNodeStateMachineTransition_xfmp8"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qujos")]
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_x3ei1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m0pg7")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(24.25, 28)
+shape = SubResource("RectangleShape2D_ou3xx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_715hb")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_715hb")
+}
+tree_root = SubResource("AnimationNodeStateMachine_r5eno")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/isClosing = false
+parameters/conditions/isIdling = false
+parameters/conditions/isOpening = false
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

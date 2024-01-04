@@ -32,6 +32,11 @@ public partial class Player : CharacterBody2D
 
 		attackArea.Monitoring = false;
 		animationTree.Active = true;
+
+		SignalBus signalBus = GetNode<SignalBus>("/root/SignalBus");
+		// The following two are the same things with different syntax.
+		// eventBus.ExitDoorEntered += OnExitDoorEntered;
+		signalBus.Connect(SignalBus.SignalName.ExitDoorEntered, new Callable(this, MethodName.OnExitDoorEntered));
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -107,6 +112,14 @@ public partial class Player : CharacterBody2D
 	{
 		isDead = true;
 		animationPlayback.Travel("Dead");
+	}
+
+	private void OnExitDoorEntered(int level)
+	{
+		GD.Print(level);
+		isDead = true;
+		animationPlayback.Travel("DoorIn");
+		// GetNode<AnimationPlayer>("AnimationPlayer").Play("DoorIn");
 	}
 
 }
