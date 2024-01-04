@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://pesnq26km0nf"]
+[gd_scene load_steps=49 format=3 uid="uid://pesnq26km0nf"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Player/Player.cs" id="1_to6ud"]
 [ext_resource type="Texture2D" uid="uid://bd175tghbgi3x" path="res://Assets/Sprites/King Human/Attack (78x58).png" id="2_06a47"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scenes/Characters/Player/AttackArea.cs" id="6_jdryb"]
 [ext_resource type="PackedScene" uid="uid://4rfk6bu6djee" path="res://Scenes/Stats/Health/health.tscn" id="7_6fxgd"]
 [ext_resource type="Texture2D" uid="uid://biakn2frhl1yx" path="res://Assets/Sprites/King Human/Door Out (78x58).png" id="8_jq0yq"]
+[ext_resource type="PackedScene" uid="uid://8qhpdr5n4obj" path="res://Scenes/Stats/Diamond/diamond_stat.tscn" id="11_fgyp6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jdd6r"]
 size = Vector2(29, 30)
@@ -503,6 +504,8 @@ parameters/conditions/isMoving = false
 parameters/Move/blend_position = 0.0
 
 [node name="Health" parent="." instance=ExtResource("7_6fxgd")]
+
+[node name="DiamondStat" parent="." instance=ExtResource("11_fgyp6")]
 
 [connection signal="body_entered" from="AttackArea" to="AttackArea" method="OnBodyEntered"]
 [connection signal="HealthDepleted" from="Health" to="." method="OnHealthDepleted"]

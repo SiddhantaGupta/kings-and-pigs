@@ -1,0 +1,147 @@
+[gd_scene load_steps=14 format=3 uid="uid://cpku3adh8aodr"]
+
+[ext_resource type="Script" path="res://Scenes/Items/Diamond/Diamond.cs" id="1_0we0i"]
+[ext_resource type="Texture2D" uid="uid://bybqh5qdp3p31" path="res://Assets/Sprites/Live and Coins/Big Diamond Hit (18x14).png" id="1_5h8eq"]
+[ext_resource type="Texture2D" uid="uid://bsg56v1dcgin8" path="res://Assets/Sprites/Live and Coins/Big Diamond Idle (18x14).png" id="1_rbk48"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gfvy5"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_w245e"]
+resource_name = "Hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_5h8eq")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_hmvv2"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_rbk48")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qanbp"]
+_data = {
+"Hit": SubResource("Animation_w245e"),
+"Idle": SubResource("Animation_hmvv2")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sb2dj"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jjck1"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6fcvw"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n75qo"]
+advance_mode = 2
+advance_condition = &"aisHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_swqub"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8243k"]
+states/End/position = Vector2(637, 100)
+states/Hit/node = SubResource("AnimationNodeAnimation_sb2dj")
+states/Hit/position = Vector2(460, 100)
+states/Idle/node = SubResource("AnimationNodeAnimation_jjck1")
+states/Idle/position = Vector2(336, 100)
+states/Start/position = Vector2(203, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6fcvw"), "Idle", "Hit", SubResource("AnimationNodeStateMachineTransition_n75qo"), "Hit", "End", SubResource("AnimationNodeStateMachineTransition_swqub")]
+
+[node name="Diamond" type="Area2D"]
+script = ExtResource("1_0we0i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.5)
+shape = SubResource("CircleShape2D_gfvy5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rbk48")
+hframes = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qanbp")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qanbp")
+}
+tree_root = SubResource("AnimationNodeStateMachine_8243k")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/aisHit = false
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnAnimationTreeAnimationFinished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bs3h1rjbcbn4g"]
+[gd_scene load_steps=12 format=3 uid="uid://bs3h1rjbcbn4g"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/LevelTest/LevelTest.cs" id="1_4kqp5"]
 [ext_resource type="Texture2D" uid="uid://bi2s0s0kwy2ii" path="res://Assets/Sprites/TileSets/Terrain (32x32).png" id="1_14okd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://pesnq26km0nf" path="res://Scenes/Characters/Player/player.tscn" id="3_8cs53"]
 [ext_resource type="PackedScene" uid="uid://c2bjlb3rfquki" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/box_pig.tscn" id="5_vxfva"]
 [ext_resource type="PackedScene" uid="uid://c7r62s7ep18y2" path="res://Scenes/Items/Door/door.tscn" id="6_n7psk"]
+[ext_resource type="PackedScene" uid="uid://cpku3adh8aodr" path="res://Scenes/Items/Diamond/diamond.tscn" id="7_qg5ui"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ym28p"]
 resource_name = "Terrain"
@@ -1347,7 +1348,7 @@ texture = ExtResource("2_4fnsl")
 [sub_resource type="TileSet" id="TileSet_uuo32"]
 sources/0 = SubResource("TileSetAtlasSource_3nmnx")
 
-[node name="Level1" type="Node2D"]
+[node name="LevelTest" type="Node2D"]
 script = ExtResource("1_4kqp5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -1368,6 +1369,9 @@ metadata/_edit_group_ = true
 tile_set = SubResource("TileSet_uuo32")
 format = 2
 layer_0/tile_data = PackedInt32Array(1966113, 262144, 6, 2031649, 262144, 7, 2097185, 262144, 8, 1966114, 327680, 6, 2031650, 327680, 7, 2097186, 327680, 8, 1966115, 393216, 6, 2031651, 393216, 7, 2097187, 393216, 8, 1966125, 262144, 6, 2031661, 262144, 7, 2097197, 262144, 8, 1966126, 327680, 6, 2031662, 327680, 7, 2097198, 327680, 8, 1966127, 393216, 6, 2031663, 393216, 7, 2097199, 393216, 8, 1966137, 262144, 6, 2031673, 262144, 7, 2097209, 262144, 8, 1966138, 327680, 6, 2031674, 327680, 7, 2097210, 327680, 8, 1966139, 393216, 6, 2031675, 393216, 7, 2097211, 393216, 8, 1966149, 262144, 6, 2031685, 262144, 7, 2097221, 262144, 8, 1966150, 327680, 6, 2031686, 327680, 7, 2097222, 327680, 8, 1966151, 393216, 6, 2031687, 393216, 7, 2097223, 393216, 8, 1966160, 262144, 6, 2031696, 262144, 7, 2097232, 262144, 8, 1966161, 327680, 6, 2031697, 327680, 7, 2097233, 327680, 8, 1966162, 393216, 6, 2031698, 393216, 7, 2097234, 393216, 8, 1966172, 262144, 6, 2031708, 262144, 7, 2097244, 262144, 8, 1966173, 327680, 6, 2031709, 327680, 7, 2097245, 327680, 8, 1966174, 393216, 6, 2031710, 393216, 7, 2097246, 393216, 8)
+
+[node name="Diamond" parent="." instance=ExtResource("7_qg5ui")]
+position = Vector2(592, 768)
 
 [node name="Door" parent="." instance=ExtResource("6_n7psk")]
 position = Vector2(632, 728)
