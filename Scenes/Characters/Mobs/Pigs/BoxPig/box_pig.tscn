@@ -150,26 +150,19 @@ animation = &"Pick"
 animation = &"Throw"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q13l1"]
-advance_mode = 2
-advance_condition = &"isThrowing"
+advance_expression = "g"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tr7tc"]
 switch_mode = 2
-advance_mode = 2
-advance_condition = &"isThrowing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rhcqu"]
 switch_mode = 2
-advance_mode = 2
-advance_condition = &"aaisPicking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t4stw"]
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7f4tp"]
 switch_mode = 2
-advance_mode = 2
-advance_condition = &"isIdle"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iloep"]
 states/Idle/node = SubResource("AnimationNodeAnimation_abfvs")
@@ -186,8 +179,8 @@ graph_offset = Vector2(0, -54.5214)
 script = ExtResource("1_u7rat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_6d24o")
-hframes = 5
+texture = ExtResource("2_rf2o7")
+hframes = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 1)
@@ -214,9 +207,6 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_iloep")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/aaisPicking = false
-parameters/conditions/isIdle = false
-parameters/conditions/isThrowing = false
 
 [node name="BoxMarker" type="Marker2D" parent="."]
 position = Vector2(-24, -24)

@@ -65,7 +65,10 @@ public partial class BoxPig : CharacterBody2D
 		if (body is Player)
 		{
 			isPlayerInRange = true;
-			animationPlayback.Travel("Throw");
+			if (animationPlayback.GetCurrentNode() != "Throw")
+			{
+				animationPlayback.Travel("Throw");
+			}
 		}
 	}
 
