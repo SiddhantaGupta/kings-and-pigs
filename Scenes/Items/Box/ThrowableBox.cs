@@ -28,6 +28,7 @@ public partial class ThrowableBox : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
+		if (body == GetParent()) { return; }
 		if (body is Player)
 		{
 			// reduce player health

@@ -116,10 +116,8 @@ public partial class Player : CharacterBody2D
 
 	private void OnExitDoorEntered(int level)
 	{
-		GD.Print(level);
 		isDead = true;
 		animationPlayback.Travel("DoorIn");
-		// GetNode<AnimationPlayer>("AnimationPlayer").Play("DoorIn");
 	}
 
 }

@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://c2bjlb3rfquki"]
+[gd_scene load_steps=22 format=3 uid="uid://c2bjlb3rfquki"]
 
 [ext_resource type="Script" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/BoxPig.cs" id="1_u7rat"]
 [ext_resource type="Texture2D" uid="uid://bjr47gisecc6i" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Idle (26x30).png" id="2_rf2o7"]
 [ext_resource type="Texture2D" uid="uid://c0oh7xtjpweda" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Picking Box (26x30).png" id="3_6d24o"]
-[ext_resource type="Script" path="res://Scenes/Characters/Mobs/Pigs/BoxPig/Damageable.cs" id="5_1wkbt"]
 [ext_resource type="Texture2D" uid="uid://dn3xkdsa4mi8x" path="res://Assets/Sprites/Mobs/Pigs/Pig Throwing a Box/Throwing Box (26x30).png" id="5_3742h"]
+[ext_resource type="PackedScene" uid="uid://dpkgvn4nhtvrg" path="res://Scenes/Modifiers/DropHeart/drop_heart.tscn" id="6_7hxvo"]
+[ext_resource type="PackedScene" uid="uid://bs7ev1txotvwp" path="res://Scenes/Modifiers/Damageable/damageable.tscn" id="6_oy116"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc2aq"]
 size = Vector2(26, 30)
@@ -200,9 +201,6 @@ libraries = {
 "": SubResource("AnimationLibrary_j7mmg")
 }
 
-[node name="Damageable" type="Node" parent="."]
-script = ExtResource("5_1wkbt")
-
 [node name="AnimationTree" type="AnimationTree" parent="."]
 active = false
 libraries = {
@@ -212,7 +210,11 @@ tree_root = SubResource("AnimationNodeStateMachine_iloep")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="BoxMarker" type="Marker2D" parent="."]
-position = Vector2(-24, -24)
+position = Vector2(-8, -8)
+
+[node name="DropHeart" parent="." instance=ExtResource("6_7hxvo")]
+
+[node name="Damageable" parent="." instance=ExtResource("6_oy116")]
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="OnPlayerDetectionBodyEntered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="OnPlayerDetectionBodyExited"]

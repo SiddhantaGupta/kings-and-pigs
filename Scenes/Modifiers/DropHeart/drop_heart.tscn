@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpkgvn4nhtvrg"]
+
+[ext_resource type="Script" path="res://Scenes/Modifiers/DropHeart/DropHeart.cs" id="1_561t2"]
+
+[node name="DropHeart" type="Node"]
+script = ExtResource("1_561t2")
