@@ -176,6 +176,8 @@ transitions = ["Idle", "Throw", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(0, -54.5214)
 
 [node name="BoxPig" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_u7rat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -187,6 +189,7 @@ position = Vector2(2.5, 1)
 shape = SubResource("RectangleShape2D_pc2aq")
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="PlayerDetectionArea" type="CollisionShape2D" parent="PlayerDetection"]
 position = Vector2(0, -24)

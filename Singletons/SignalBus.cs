@@ -7,4 +7,6 @@ public partial class SignalBus : Node
 	public delegate void ExitDoorEnteredEventHandler(int level);
 	[Signal]
 	public delegate void DiamondCollectedEventHandler(int count);
+	[Signal]
+	public delegate void HeartCollectedEventHandler(int count);
 }

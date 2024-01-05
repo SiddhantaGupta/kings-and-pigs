@@ -1,0 +1,156 @@
+[gd_scene load_steps=15 format=3 uid="uid://bebwo176rhtk7"]
+
+[ext_resource type="Script" path="res://Scenes/Items/Collectables/Heart/Heart.cs" id="1_gjatw"]
+[ext_resource type="Texture2D" uid="uid://dvxdnxpv78ttw" path="res://Assets/Sprites/Live and Coins/Big Heart Idle (18x14).png" id="2_3jm1w"]
+[ext_resource type="Texture2D" uid="uid://db3baemrvjxs7" path="res://Assets/Sprites/Live and Coins/Big Heart Hit (18x14).png" id="2_20ygr"]
+
+[sub_resource type="Animation" id="Animation_bvium"]
+resource_name = "Hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_20ygr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_sredp"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_3jm1w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gtacd"]
+_data = {
+"Hit": SubResource("Animation_bvium"),
+"Idle": SubResource("Animation_sredp")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_051wi"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rdc84"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hb2e6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_icbgj"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2hrpt"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_axupa"]
+states/Hit/node = SubResource("AnimationNodeAnimation_051wi")
+states/Hit/position = Vector2(484, 100)
+states/Idle/node = SubResource("AnimationNodeAnimation_rdc84")
+states/Idle/position = Vector2(324, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_hb2e6"), "Idle", "Hit", SubResource("AnimationNodeStateMachineTransition_icbgj"), "Hit", "End", SubResource("AnimationNodeStateMachineTransition_2hrpt")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6yy16"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmia2"]
+size = Vector2(16, 16)
+
+[node name="Heart" type="RigidBody2D"]
+collision_layer = 16
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_gjatw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3jm1w")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gtacd")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gtacd")
+}
+tree_root = SubResource("AnimationNodeStateMachine_axupa")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_6yy16")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_kmia2")
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="OnAnimationTreeAnimationFinished"]
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

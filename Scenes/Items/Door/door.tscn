@@ -172,6 +172,7 @@ states/Start/position = Vector2(168, 100)
 transitions = ["Idle", "Open", SubResource("AnimationNodeStateMachineTransition_g3htm"), "Open", "Close", SubResource("AnimationNodeStateMachineTransition_ncsk6"), "Close", "Idle", SubResource("AnimationNodeStateMachineTransition_xfmp8"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qujos")]
 
 [node name="Door" type="Area2D"]
+collision_mask = 3
 script = ExtResource("1_x3ei1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

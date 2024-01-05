@@ -7,6 +7,8 @@
 size = Vector2(20, 16)
 
 [node name="ThrowableBox" type="Area2D"]
+collision_layer = 8
+collision_mask = 15
 script = ExtResource("1_g2ujn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

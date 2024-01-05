@@ -12,6 +12,14 @@ public partial class Health : CanvasLayer
 	{
 		healthLabel = GetNode<Label>("Label");
 		setHealth(100);
+		SignalBus signalBus = GetNode<SignalBus>("/root/SignalBus");
+		signalBus.Connect(SignalBus.SignalName.HeartCollected, new Callable(this, MethodName.OnDiamondCollected));
+	}
+
+	public void OnDiamondCollected(int count)
+	{
+		setHealth(health + count);
+
 	}
 
 	public void hit(int damage)

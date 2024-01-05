@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cpku3adh8aodr"]
 
-[ext_resource type="Script" path="res://Scenes/Items/Diamond/Diamond.cs" id="1_0we0i"]
+[ext_resource type="Script" path="res://Scenes/Items/Collectables/Diamond/Diamond.cs" id="1_0we0i"]
 [ext_resource type="Texture2D" uid="uid://bybqh5qdp3p31" path="res://Assets/Sprites/Live and Coins/Big Diamond Hit (18x14).png" id="1_5h8eq"]
 [ext_resource type="Texture2D" uid="uid://bsg56v1dcgin8" path="res://Assets/Sprites/Live and Coins/Big Diamond Idle (18x14).png" id="1_rbk48"]
 
@@ -120,6 +120,8 @@ states/Start/position = Vector2(203, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6fcvw"), "Idle", "Hit", SubResource("AnimationNodeStateMachineTransition_n75qo"), "Hit", "End", SubResource("AnimationNodeStateMachineTransition_swqub")]
 
 [node name="Diamond" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
 script = ExtResource("1_0we0i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -129,6 +131,7 @@ shape = SubResource("CircleShape2D_gfvy5")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rbk48")
 hframes = 10
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
