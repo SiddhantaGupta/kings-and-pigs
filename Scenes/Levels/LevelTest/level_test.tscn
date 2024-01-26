@@ -1378,9 +1378,8 @@ position = Vector2(896, 768)
 position = Vector2(1024, 728)
 type = 1
 
-[node name="BoxPig" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_vxfva")]
+[node name="BoxPig" parent="." instance=ExtResource("5_vxfva")]
 position = Vector2(720, 768)
-player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_8cs53")]
 position = Vector2(440, 768)

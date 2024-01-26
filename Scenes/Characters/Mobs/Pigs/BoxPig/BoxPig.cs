@@ -3,7 +3,6 @@ using System;
 
 public partial class BoxPig : CharacterBody2D
 {
-	[Export]
 	public CharacterBody2D player;
 	public PackedScene throwableBoxScene;
 	public const float Speed = 300.0f;
@@ -26,6 +25,7 @@ public partial class BoxPig : CharacterBody2D
 		animationTree = GetNode<AnimationTree>("AnimationTree");
 		boxMarker = GetNode<Marker2D>("BoxMarker");
 		animationPlayback = animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
+		player = GetTree().CurrentScene.GetNode<CharacterBody2D>("Player");
 
 		animationTree.Active = true;
 		animationPlayback.Travel("Idle");
